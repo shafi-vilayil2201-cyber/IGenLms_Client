@@ -59,7 +59,7 @@ export default function LandingPage() {
           <div className="flex items-center gap-3">
             <button onClick={() => navigate("/login")} data-testid="button-nav-login"
               className="text-white/80 hover:text-white text-sm font-medium px-4 py-2 transition-colors">Login</button>
-            <button onClick={() => navigate("/register")} data-testid="button-nav-register"
+            <button onClick={() => navigate("/register/student")} data-testid="button-nav-register"
               className="text-white text-sm font-semibold px-5 py-2 rounded-lg transition-opacity hover:opacity-90"
               style={{ background: SAFFRON }}>Start Free Trial</button>
           </div>
@@ -94,7 +94,7 @@ export default function LandingPage() {
               Join 24,500+ aspirants who track daily habits, compete on leaderboards, and learn from IAS mentors — all in one integrated ecosystem. From 6 AM WhatsApp nudges to Sunday review sessions.
             </p>
             <div className="flex flex-wrap gap-4">
-              <button onClick={() => navigate("/register")} data-testid="button-hero-trial"
+              <button onClick={() => navigate("/register/student")} data-testid="button-hero-trial"
                 className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-white font-semibold text-base transition-transform hover:scale-105"
                 style={{ background: SAFFRON }}>
                 Start Free Trial <ArrowRight className="w-4 h-4" />
@@ -165,7 +165,7 @@ export default function LandingPage() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
             {domains.map((d) => (
               <div key={d.name}>
-                <div onClick={() => d.status === "live" && navigate("/register")}
+                <div onClick={() => d.status === "live" && navigate("/register/student")}
                   data-testid={`card-domain-${d.name.toLowerCase()}`}
                   className={`rounded-2xl p-6 border transition-all ${d.status === "live"
                     ? "cursor-pointer shadow-md hover:shadow-xl hover:-translate-y-1" : "opacity-60 cursor-not-allowed"}`}
@@ -186,6 +186,62 @@ export default function LandingPage() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Mentor CTA */}
+      <section className="py-20" style={{ background: `linear-gradient(135deg, ${NAVY} 0%, #12325c 100%)` }}>
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="rounded-[28px] border border-white/10 p-8 md:p-10 lg:p-12 grid lg:grid-cols-[1.25fr_0.75fr] gap-10 items-center"
+            style={{ background: "rgba(255,255,255,0.06)", backdropFilter: "blur(10px)" }}>
+            <div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold mb-5 border border-white/15 text-white/80">
+                <Star className="w-3.5 h-3.5" style={{ color: SAFFRON }} />
+                Mentor With IGen
+              </div>
+              <h2 className="text-3xl md:text-4xl font-bold text-white leading-tight mb-4" style={{ fontFamily: "Inter, sans-serif" }}>
+                Have real exam experience in <span style={{ color: SAFFRON }}>UPSC</span>, <span style={{ color: GOLD }}>NEET</span> or other competitive tracks?
+              </h2>
+              <p className="text-white/70 text-lg leading-relaxed mb-6 max-w-2xl">
+                Turn your preparation journey and qualification into income. Review answer writing, guide disciplined aspirants, build your mentor profile, and earn through structured weekly sessions on IGen.
+              </p>
+              <div className="flex flex-wrap gap-3 mb-8">
+                {[
+                  "Earn from every scheduled review",
+                  "Build authority with verified learner feedback",
+                  "Teach serious students inside a structured system",
+                ].map((item) => (
+                  <div key={item} className="rounded-full px-4 py-2 text-sm text-white/85 border border-white/10" style={{ background: "rgba(255,255,255,0.06)" }}>
+                    {item}
+                  </div>
+                ))}
+              </div>
+              <button
+                onClick={() => navigate("/register/mentor")}
+                data-testid="button-mentor-register"
+                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-white font-semibold text-base transition-transform hover:scale-105"
+                style={{ background: SAFFRON }}
+              >
+                Register as Mentor <ArrowRight className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="rounded-3xl p-6 border border-white/10" style={{ background: "rgba(10,22,40,0.55)" }}>
+              <p className="text-sm font-semibold text-white/80 mb-5">Why mentors join IGen</p>
+              <div className="space-y-4">
+                {[
+                  { label: "Flexible income", desc: "Accept sessions based on your availability and subject depth." },
+                  { label: "High-intent learners", desc: "Students arrive with weekly goals, habit scores, and review context." },
+                  { label: "Professional visibility", desc: "Stand out with ratings, badges, and domain expertise." },
+                ].map((item) => (
+                  <div key={item.label} className="rounded-2xl p-4 border border-white/10 bg-white/5">
+                    <p className="font-semibold text-white">{item.label}</p>
+                    <p className="text-sm text-white/60 mt-1">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -353,7 +409,7 @@ export default function LandingPage() {
                     </li>
                   ))}
                 </ul>
-                <button onClick={() => navigate("/register")}
+                <button onClick={() => navigate("/register/student")}
                   data-testid={`button-pricing-${plan.highlight ? "full-year" : "subject"}`}
                   className="w-full py-3 rounded-xl font-semibold text-sm transition-opacity hover:opacity-90 text-white"
                   style={plan.highlight ? { background: SAFFRON } : { background: "var(--primary)" }}>
@@ -395,7 +451,7 @@ export default function LandingPage() {
           <div>
             <h2 className="text-3xl font-bold text-white mb-4" style={{ fontFamily: "Inter, sans-serif" }}>Your IAS dream needs daily discipline.</h2>
             <p className="text-white/60 mb-8 text-lg">Start your structured 12-month journey today. Every day you delay is one more day of unstructured preparation.</p>
-            <button onClick={() => navigate("/register")} data-testid="button-footer-cta"
+            <button onClick={() => navigate("/register/student")} data-testid="button-footer-cta"
               className="inline-flex items-center gap-2 px-8 py-4 rounded-xl text-white font-semibold text-base transition-transform hover:scale-105"
               style={{ background: SAFFRON }}>
               Begin My UPSC Journey <ArrowRight className="w-4 h-4" />
