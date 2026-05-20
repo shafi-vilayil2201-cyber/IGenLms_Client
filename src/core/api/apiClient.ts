@@ -38,3 +38,30 @@ export async function apiGet<T>(path: string): Promise<T> {
 
     return result.data;
 }
+
+export async function apiPost<T>(path: string, body: unknown): Promise<T> {
+    let response: Response;
+
+    try {
+        response = await fetch(`${API_BASE_URL}${path}`, {
+            method: "POST",
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json",
+                ...getAuthHeaders(),
+            },
+            body: JSON.stringify(body),
+        });
+    } catch {
+        throw new Error("Unable to reach the server. Check that the API is running and CORS is configured.");
+    }
+
+    const result = (await response.json()) as CommonResponse<T>;
+
+    if (!response.ok || !result.success || !result.data) {
+        const message = result.errors[0] ?? result.message ?? "Request failed.";
+        throw new Error(message);
+    }
+
+    return result.data;
+}
