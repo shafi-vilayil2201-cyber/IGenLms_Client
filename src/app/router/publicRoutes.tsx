@@ -1,8 +1,8 @@
 import type { RouteObject } from "react-router-dom";
-import PublicLayout from "../../layouts/PublicLayout";
-import LandingPage from "../../pages/LandingPage";
-import LoginPage from "../../pages/LoginPage";
-import RegisterPage from "../../pages/RegisterPage";
+import PublicLayout from "../../layouts/public/PublicLayout";
+import LandingPage from "../../pages/public/LandingPage";
+import LoginPage from "../../pages/public/LoginPage";
+import RegisterPage from "../../pages/public/RegisterPage";
 import PublicOnlyRoute from "./PublicOnlyRoute";
 
 const publicRoutes: RouteObject[] = [
