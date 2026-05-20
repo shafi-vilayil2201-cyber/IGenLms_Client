@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import type { ChangeEvent, FormEvent } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { GraduationCap, ArrowRight } from "lucide-react";
-import { useAuthStore } from "../core/auth/authStore";
-import type { RegisterRequest, UserRole } from "../core/auth/auth.types";
+import { useAuthStore } from "../../core/auth/authStore";
+import type { RegisterRequest, UserRole } from "../../core/auth/auth.types";
 
 function getNextRoute(nextStep?: string, role?: string) {
   if (nextStep === "AdminDashboard" || role === "Admin") {

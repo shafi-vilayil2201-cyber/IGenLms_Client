@@ -2,7 +2,7 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { GraduationCap, Eye, EyeOff, LogIn } from "lucide-react";
-import { useAuthStore } from "../core/auth/authStore";
+import { useAuthStore } from "../../core/auth/authStore";
 
 function getNextRoute(nextStep?: string, role?: string) {
   if (nextStep === "AdminDashboard" || role === "Admin") {

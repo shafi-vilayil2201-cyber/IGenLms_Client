@@ -1,7 +1,10 @@
 import type { RouteObject } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import StudentLayout from "../../layouts/StudentLayout";
-import StudentPage from "../../pages/StudentPage";
+import StudentLayout from "../../layouts/student/StudentLayout";
+import StudentDashboardPage from "../../pages/student/StudentDashboardPage";
+import StudentCoursesPage from "../../pages/student/StudentCoursesPage";
+import StudentProfilePage from "../../pages/student/StudentProfilePage";
+import StudentReviewsPage from "../../pages/student/StudentReviewsPage";
 
 const studentRoutes: RouteObject[] = [
   {
@@ -10,7 +13,12 @@ const studentRoutes: RouteObject[] = [
     children: [
       {
         element: <StudentLayout />,
-        children: [{ index: true, element: <StudentPage /> }],
+        children: [
+          { index: true, element: <StudentDashboardPage /> },
+          { path: "courses", element: <StudentCoursesPage /> },
+          { path: "reviews", element: <StudentReviewsPage /> },
+          { path: "profile", element: <StudentProfilePage /> },
+        ],
       },
     ],
   },

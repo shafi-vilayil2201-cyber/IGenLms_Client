@@ -5,9 +5,8 @@ import type {
   RegisterRequest,
 } from "./auth.types";
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ??
-  (import.meta.env.DEV ? "http://localhost:5157" : "https://localhost:7237");
+import { API_BASE_URL } from "../api/apiConfig";
+
 
 async function postJson<T>(path: string, payload: unknown): Promise<T> {
   let response: Response;
