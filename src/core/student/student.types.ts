@@ -21,3 +21,26 @@ export interface CreateStudentHabitRequest {
   targetMinutes: number;
   points: number;
 }
+
+export interface StudentDailyAccountability {
+  date: string;
+  plannedHours: number;
+  actualHours: number;
+  focusSubject: string;
+  tasksPlanned: number;
+  tasksCompleted: number;
+  completionPercent: number;
+  dailyScore: number;
+  streakQualified: boolean;
+  energyLevel?: number;
+  nightReviewSubmitted: boolean;
+}
+
+export interface StudentFocusSession {
+  id: number;
+  topic: string;
+  plannedMinutes: number;
+  status: "active" | "completed" | "cancelled";
+  startedAtUtc: string;
+  expectedEndAtUtc: string;
+}
