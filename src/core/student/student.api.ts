@@ -1,5 +1,10 @@
 import { apiGet, apiPost } from "../api/apiClient";
-import type { CreateStudentHabitRequest, StudentHabit } from "./student.types";
+import type {
+    CreateStudentHabitRequest,
+    StudentDailyAccountability,
+    StudentFocusSession,
+    StudentHabit,
+} from "./student.types";
 
 export interface studentDashboardResponse{
     userId:number;
@@ -21,4 +26,12 @@ export function getTodayStudentHabits() {
 
 export function createStudentHabit(payload: CreateStudentHabitRequest) {
     return apiPost<StudentHabit>("/api/student/habits", payload);
+}
+
+export function getTodayAccountability() {
+    return apiGet<StudentDailyAccountability>("/api/student/accountability/today");
+}
+
+export function getTodayFocusSessions() {
+    return apiGet<StudentFocusSession[]>("/api/student/focus-sessions/today");
 }
