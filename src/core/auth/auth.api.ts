@@ -24,7 +24,26 @@ async function postJson<T>(path: string, payload: unknown): Promise<T> {
     throw new Error("Unable to reach the server. Check that the API is running and CORS is configured.");
   }
 
-  const result = (await response.json()) as CommonResponse<T>;
+  const rawBody = await response.text();
+  const result = rawBody
+    ? (() => {
+        try {
+          return JSON.parse(rawBody) as CommonResponse<T>;
+        } catch {
+          return {
+            success: false,
+            message: rawBody,
+            data: null,
+            errors: [rawBody],
+          } as CommonResponse<T>;
+        }
+      })()
+    : ({
+      success: response.ok,
+      message: response.statusText,
+      data: null,
+      errors: response.ok ? [] : [response.statusText],
+    } as CommonResponse<T>);
 
   if (!response.ok || !result.success || !result.data) {
     const message = result.errors[0] ?? result.message ?? "Request failed.";
@@ -46,7 +65,26 @@ async function postWithoutBody<T>(path: string): Promise<T> {
     throw new Error("Unable to reach the server. Check that the API is running and CORS is configured.");
   }
 
-  const result = (await response.json()) as CommonResponse<T>;
+  const rawBody = await response.text();
+  const result = rawBody
+    ? (() => {
+        try {
+          return JSON.parse(rawBody) as CommonResponse<T>;
+        } catch {
+          return {
+            success: false,
+            message: rawBody,
+            data: null,
+            errors: [rawBody],
+          } as CommonResponse<T>;
+        }
+      })()
+    : ({
+      success: response.ok,
+      message: response.statusText,
+      data: null,
+      errors: response.ok ? [] : [response.statusText],
+    } as CommonResponse<T>);
 
   if (!response.ok || !result.success || !result.data) {
     const message = result.errors[0] ?? result.message ?? "Request failed.";
