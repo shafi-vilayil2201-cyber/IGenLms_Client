@@ -14,6 +14,30 @@ function getAuthHeaders(): HeadersInit {
     };
 }
 
+async function parseCommonResponse<T>(response: Response): Promise<CommonResponse<T>> {
+    const rawBody = await response.text();
+
+    if (!rawBody) {
+        return {
+            success: response.ok,
+            message: response.statusText,
+            data: null,
+            errors: response.ok ? [] : [response.statusText],
+        };
+    }
+
+    try {
+        return JSON.parse(rawBody) as CommonResponse<T>;
+    } catch {
+        return {
+            success: false,
+            message: rawBody,
+            data: null,
+            errors: [rawBody],
+        };
+    }
+}
+
 export async function apiGet<T>(path: string): Promise<T> {
     let response: Response;
 
@@ -29,7 +53,7 @@ export async function apiGet<T>(path: string): Promise<T> {
         throw new Error("Unable to reach the server. Check that the API is running and CORS is configured.");
     }
 
-    const result = (await response.json()) as CommonResponse<T>;
+    const result = await parseCommonResponse<T>(response);
 
     if (!response.ok || !result.success || !result.data) {
         const message = result.errors[0] ?? result.message ?? "Request failed.";
@@ -56,7 +80,7 @@ export async function apiPost<T>(path: string, body: unknown): Promise<T> {
         throw new Error("Unable to reach the server. Check that the API is running and CORS is configured.");
     }
 
-    const result = (await response.json()) as CommonResponse<T>;
+    const result = await parseCommonResponse<T>(response);
 
     if (!response.ok || !result.success || !result.data) {
         const message = result.errors[0] ?? result.message ?? "Request failed.";
